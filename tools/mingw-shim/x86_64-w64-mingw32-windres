@@ -1,0 +1,28 @@
+#!/bin/sh
+# AURA cross-build shim for x86_64-w64-mingw32-windres.
+# Emits a minimal *valid* empty COFF object so resource objects link, then
+# invokes the python-zig C compiler (PE/COFF cross) to produce it.
+# Resource content (icons/version info) is omitted in the cross build.
+OUT=""
+for a in "$@"; do
+  case "$a" in
+    *.res) OUT="$a" ;;
+    -o) : ;;
+  esac
+done
+if [ -z "$OUT" ]; then
+  # fall back: -o <out> form
+  prev=""
+  for a in "$@"; do
+    if [ "$prev" = "-o" ]; then OUT="$a"; fi
+    prev="$a"
+  done
+fi
+[ -z "$OUT" ] && OUT=/dev/null
+TMP="$(mktemp /tmp/aura_windres_XXXXXX.c)"
+printf 'char aura_empty_resource_object[1];\n' > "$TMP"
+CC="$(dirname "$0")/x86_64-w64-mingw32-g++"
+"$CC" -target x86_64-windows-gnu -x c -c "$TMP" -o "$OUT" -w 2>/dev/null \
+  || printf 'No COFF output produced\n' >&2
+rm -f "$TMP"
+exit 0

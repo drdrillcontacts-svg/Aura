@@ -1,0 +1,19 @@
+#!/bin/sh
+# CMake-facing shim: presents as mingw-w64 GCC, compiles with zig (PE/COFF output).
+ZIG=/home/user/.buildenv/bin/python-zig
+TARGET=x86_64-windows-gnu
+case "$1" in
+  --version)
+    echo "x86_64-w64-mingw32-gcc (AURA zig shim) 13.2.0"
+    exit 0 ;;
+  -dumpmachine)
+    echo "x86_64-w64-mingw32"
+    exit 0 ;;
+  -dumpversion)
+    echo "13.2.0"
+    exit 0 ;;
+  -print-search-dirs)
+    echo "installed:"
+    exit 0 ;;
+esac
+exec $ZIG cc -target $TARGET "$@"

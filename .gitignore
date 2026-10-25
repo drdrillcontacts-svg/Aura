@@ -1,0 +1,24 @@
+# Build trees (kept out of Git; regenerable)
+build/
+build-win/
+dist/
+out/
+cmake-build-*/
+
+# Binary build artifacts / packaged plugin
+*.zip
+*.pdb
+*.ilk
+AURA_vst3.x64/
+CMakeFiles/
+CMakeCache.txt
+
+# Compiled helper binary (regenerated from tools/throwhook.cpp)
+tools/throwhook.so
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.user
