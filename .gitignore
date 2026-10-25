@@ -13,6 +13,10 @@ AURA_vst3.x64/
 CMakeFiles/
 CMakeCache.txt
 
+# Exception: the packaged Windows VST3 deliverable is kept in-repo on
+# purpose so it has a stable direct download URL (see PR/commit notes).
+!AURA_VST3_Windows_x86_64.zip
+
 # Compiled helper binary (regenerated from tools/throwhook.cpp)
 tools/throwhook.so
 
