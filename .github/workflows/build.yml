@@ -26,7 +26,16 @@ jobs:
         run: cmake --build build --config Release --target AURA_Standalone
       - name: Package VST3 bundle
         shell: pwsh
-        run: Compress-Archive -Path "build/AURA_artefacts/Release/VST3/AURA.vst3" -DestinationPath "AURA_VST3_Windows_x86_64.zip"
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $vst3 = Get-ChildItem -Path build -Recurse -Directory -Filter "AURA.vst3" | Select-Object -First 1
+          if (-not $vst3) {
+            Write-Host "AURA.vst3 bundle not found; build tree contents:"
+            Get-ChildItem -Path build -Recurse -Directory | Where-Object { $_.Name -like '*VST3*' -or $_.Name -like '*artefact*' } | ForEach-Object { Write-Host $_.FullName }
+            exit 1
+          }
+          Write-Host "Packaging: $($vst3.FullName)"
+          Compress-Archive -Path $vst3.FullName -DestinationPath "AURA_VST3_Windows_x86_64.zip"
       - name: Upload VST3 artifact
         uses: actions/upload-artifact@v4
         with:
