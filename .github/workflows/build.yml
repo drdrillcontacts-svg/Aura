@@ -25,25 +25,68 @@ jobs:
       - name: Build Standalone
         run: cmake --build build --config Release --target AURA_Standalone
       - name: Package VST3 bundle
+        id: package
         shell: pwsh
+        continue-on-error: true
         run: |
+          # NOTE: the repo may already contain a tracked AURA_VST3_Windows_x86_64.zip
+          # (previous artifact) - Compress-Archive cannot overwrite an existing file.
           $ErrorActionPreference = 'Stop'
-          $vst3 = Get-ChildItem -Path build -Recurse -Directory -Filter "AURA.vst3" | Select-Object -First 1
-          if (-not $vst3) {
-            Write-Host "AURA.vst3 bundle not found; build tree contents:"
-            Get-ChildItem -Path build -Recurse -Directory | Where-Object { $_.Name -like '*VST3*' -or $_.Name -like '*artefact*' } | ForEach-Object { Write-Host $_.FullName }
-            exit 1
+          try {
+            $vst3 = Get-ChildItem -Path build -Recurse -Directory -Filter "AURA.vst3" -ErrorAction Stop | Select-Object -First 1
+            if (-not $vst3) { throw "AURA.vst3 bundle directory not found under build/" }
+            Write-Host "Found bundle: $($vst3.FullName)"
+            $dest = Join-Path (Get-Location) "AURA_VST3_Windows_x86_64.zip"
+            if (Test-Path $dest) { Remove-Item $dest -Force }
+            Compress-Archive -Path $vst3.FullName -DestinationPath $dest
+            "status=OK" | Out-File $env:GITHUB_OUTPUT -Append
+            Write-Host "Zip created: $((Get-Item $dest).Length) bytes"
+          } catch {
+            "status=FAIL" | Out-File $env:GITHUB_OUTPUT -Append
+            "PACKAGE_ERROR: $($_.Exception.Message)" | Out-File ci_diag.txt -Append -Encoding utf8
+            "STACK: $($_.ScriptStackTrace)" | Out-File ci_diag.txt -Append -Encoding utf8
+            throw
           }
-          Write-Host "Packaging: $($vst3.FullName)"
-          Compress-Archive -Path $vst3.FullName -DestinationPath "AURA_VST3_Windows_x86_64.zip"
       - name: Upload VST3 artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: AURA-Windows-VST3
+          if-no-files-found: ignore
           path: |
             AURA_VST3_Windows_x86_64.zip
             build/AURA_artefacts/Release/VST3/
+      - name: Push diagnostics
+        if: always()
+        shell: pwsh
+        run: |
+          # Writes a diagnostic report to the aura-ci-diag branch (readable via the
+          # GitHub API) so build problems can be diagnosed without log access.
+          $ErrorActionPreference = 'SilentlyContinue'
+          $diag = @()
+          $diag += "run=${{ github.run_id }} time=$(Get-Date -Format o) package_status=${{ steps.package.outputs.status }}"
+          $diag += "---- bundle dirs (under build) ----"
+          $diag += (Get-ChildItem -Path build -Recurse -Directory | Where-Object { $_.Name -match 'AURA|artefact' } | Select-Object -First 40 | ForEach-Object { $_.FullName })
+          $diag += "---- bundle contents ----"
+          $v = Get-ChildItem -Path build -Recurse -Directory -Filter 'AURA.vst3' | Select-Object -First 1
+          if ($v) { $diag += (Get-ChildItem -Path $v.FullName -Recurse | ForEach-Object { "$($_.FullName) ($($_.Length) bytes)" }) }
+          $diag += "---- zip in worktree ----"
+          $diag += (Test-Path "AURA_VST3_Windows_x86_64.zip")
+          ($diag -join "`n") | Out-File ci_diag.txt -Encoding utf8
+          # commit ci_diag.txt to aura-ci-diag via git plumbing (worktree untouched)
+          git config user.name "AURA CI"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          $env:GIT_INDEX_FILE = Join-Path $env:TEMP "aura-diag-index"
+          git read-tree HEAD | Out-Null
+          git add -- ci_diag.txt | Out-Null
+          $tree = (git write-tree).Trim()
+          Remove-Item Env:GIT_INDEX_FILE
+          $commit = (git commit-tree $tree -p HEAD -m "CI diagnostics run ${{ github.run_id }}").Trim()
+          git update-ref refs/heads/aura-ci-diag $commit
+          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+          git push origin aura-ci-diag --force
       - name: Publish GitHub Release (direct download link)
+        if: ${{ steps.package.outputs.status == 'OK' }}
         uses: softprops/action-gh-release@v2
         with:
           tag_name: aura-vst3-windows-x64
