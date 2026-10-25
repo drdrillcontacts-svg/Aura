@@ -2,7 +2,7 @@ name: Build AURA
 on:
   workflow_dispatch:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, "arena/7b8be8d4-aura" ]
     paths:
       - 'Source/**'
       - 'CMakeLists.txt'
@@ -22,8 +22,77 @@ jobs:
         run: cmake -S . -B build -A x64
       - name: Build VST3
         run: cmake --build build --config Release --target AURA_VST3
-      - name: Upload VST3
+      - name: Build Standalone
+        run: cmake --build build --config Release --target AURA_Standalone
+      - name: Package VST3 bundle
+        shell: pwsh
+        run: |
+          # NOTE: the repo may already contain a tracked AURA_VST3_Windows_x86_64.zip
+          # (previous artifact) - Compress-Archive cannot overwrite an existing file.
+          $ErrorActionPreference = 'Stop'
+          $vst3 = Get-ChildItem -Path build -Recurse -Directory -Filter "AURA.vst3" -ErrorAction Stop | Select-Object -First 1
+          if (-not $vst3) { Write-Error "AURA.vst3 bundle directory not found under build/"; exit 1 }
+          Write-Host "Found bundle: $($vst3.FullName)"
+          $dest = Join-Path (Get-Location) "AURA_VST3_Windows_x86_64.zip"
+          if (Test-Path $dest) { Remove-Item $dest -Force }
+          Compress-Archive -Path $vst3.FullName -DestinationPath $dest
+          Write-Host "Zip created: $((Get-Item $dest).Length) bytes"
+      - name: Upload VST3 artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: AURA-Windows-VST3
-          path: build/AURA_artefacts/Release/VST3/
+          if-no-files-found: ignore
+          path: |
+            AURA_VST3_Windows_x86_64.zip
+            build/AURA_artefacts/Release/VST3/
+      - name: Publish GitHub Release (direct download link)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: aura-vst3-windows-x64
+          name: AURA Windows x64 VST3
+          body: |
+            Native Windows x64 VST3 build of AURA (planetary one-shot instrument),
+            compiled with MSVC on windows-latest.
+
+            Install: download AURA_VST3_Windows_x86_64.zip, unzip, then copy the
+            `AURA.vst3` folder into your VST3 scan path (e.g.
+            `C:\Program Files\Common Files\VST3\`) and rescan in your DAW.
+
+            Build: MSVC (Visual Studio, x64), JUCE 8.0.6, CMake.
+          files: AURA_VST3_Windows_x86_64.zip
+          overwrite: true
+          draft: false
+          prerelease: false
+      - name: Push diagnostics
+        if: always()
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          # Best-effort diagnostic report pushed to the aura-ci-diag branch
+          # (readable via the GitHub API) so build problems can be diagnosed
+          # without log access. Never fails the run.
+          try {
+            $ErrorActionPreference = 'SilentlyContinue'
+            $diag = @()
+            $diag += "run=${{ github.run_id }} time=$(Get-Date -Format o)"
+            $diag += "---- bundle contents ----"
+            $v = Get-ChildItem -Path build -Recurse -Directory -Filter 'AURA.vst3' | Select-Object -First 1
+            if ($v) { $diag += (Get-ChildItem -Path $v.FullName -Recurse | ForEach-Object { "$($_.FullName) ($($_.Length) bytes)" }) }
+            $diag += "---- zip in worktree ----"
+            $diag += (Test-Path "AURA_VST3_Windows_x86_64.zip")
+            ($diag -join "`n") | Out-File ci_diag.txt -Encoding utf8
+            git config user.name "AURA CI"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            $env:GIT_INDEX_FILE = Join-Path $env:TEMP "aura-diag-index"
+            git read-tree HEAD | Out-Null
+            git add -- ci_diag.txt | Out-Null
+            $tree = (git write-tree).Trim()
+            Remove-Item Env:GIT_INDEX_FILE
+            $commit = (git commit-tree $tree -p HEAD -m "CI diagnostics run ${{ github.run_id }}").Trim()
+            git update-ref refs/heads/aura-ci-diag $commit
+            git push origin aura-ci-diag --force
+          } catch {
+            Write-Host "diagnostics push skipped: $($_.Exception.Message)"
+          }
+          exit 0

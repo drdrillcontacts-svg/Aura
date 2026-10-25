@@ -1,0 +1,5 @@
+#!/bin/sh
+# AURA cross-build: zig ar already writes the MS symbol table into the
+# archive; GNU ranlib corrupts MS-format COFF archives (lld then cannot
+# resolve symbols from it). No-op on purpose.
+exit 0
