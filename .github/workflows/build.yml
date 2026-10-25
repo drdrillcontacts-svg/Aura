@@ -24,32 +24,31 @@ jobs:
         run: cmake --build build --config Release --target AURA_VST3
       - name: Build Standalone
         run: cmake --build build --config Release --target AURA_Standalone
-      - name: Upload VST3
+      - name: Package VST3 bundle
+        shell: pwsh
+        run: Compress-Archive -Path "build/AURA_artefacts/Release/VST3/AURA.vst3" -DestinationPath "AURA_VST3_Windows_x86_64.zip"
+      - name: Upload VST3 artifact
         uses: actions/upload-artifact@v4
         with:
           name: AURA-Windows-VST3
-          path: build/AURA_artefacts/Release/VST3/
-      - name: Publish to aura-artifacts branch (direct download link)
-        shell: pwsh
-        run: |
-          $ErrorActionPreference = 'Stop'
-          # 1. Package the freshly built VST3 bundle
-          Compress-Archive -Path "build/AURA_artefacts/Release/VST3/AURA.vst3" -DestinationPath "$env:TEMP/AURA_VST3_Windows_x86_64.zip"
-          # 2. Prepare the dedicated artifacts branch
-          git config user.name "AURA CI"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
-          git fetch --depth 1 origin aura-artifacts
-          if ($LASTEXITCODE -eq 0) {
-            git checkout -B aura-artifacts origin/aura-artifacts
-          } else {
-            git checkout --orphan aura-artifacts
-            git reset
-          }
-          # 3. The branch contains exactly the artifact
-          Get-ChildItem -Force | Where-Object { $_.Name -ne '.git' } | Remove-Item -Recurse -Force
-          Copy-Item "$env:TEMP/AURA_VST3_Windows_x86_64.zip" .
-          git add AURA_VST3_Windows_x86_64.zip
-          git commit -m "AURA Windows x64 VST3 - MSVC CI build (run ${{ github.run_id }})"
-          git push origin aura-artifacts --force
-          Write-Host "Published: https://github.com/${{ github.repository }}/raw/aura-artifacts/AURA_VST3_Windows_x86_64.zip"
+          path: |
+            AURA_VST3_Windows_x86_64.zip
+            build/AURA_artefacts/Release/VST3/
+      - name: Publish GitHub Release (direct download link)
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: aura-vst3-windows-x64
+          name: AURA Windows x64 VST3
+          body: |
+            Native Windows x64 VST3 build of AURA (planetary one-shot instrument),
+            compiled with MSVC on windows-latest.
+
+            Install: download AURA_VST3_Windows_x86_64.zip, unzip, then copy the
+            `AURA.vst3` folder into your VST3 scan path (e.g.
+            `C:\Program Files\Common Files\VST3\`) and rescan in your DAW.
+
+            Build: MSVC (Visual Studio, x64), JUCE 8.0.6, CMake.
+          files: AURA_VST3_Windows_x86_64.zip
+          overwrite: true
+          draft: false
+          prerelease: false

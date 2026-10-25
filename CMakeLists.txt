@@ -33,8 +33,12 @@ endif()
 # X11/freetype development headers; skipping it also lets audio-only targets
 # (the headless self-test) be configured on machines without those headers.
 # (The patch is applied after the clone and before JUCE's CMake is run.)
+#
+# Exception: on native Windows juceaide IS built and used (it generates the
+# .rc version/icon resources and works fine with MSVC).
 # ----------------------------------------------------------------------------
-if(EXISTS "${AURA_JUCE_DIR}/extras/Build/CMakeLists.txt")
+if((CMAKE_SYSTEM_NAME STREQUAL "Linux" OR AURA_WINDOWS_CROSS_BUILD)
+   AND EXISTS "${AURA_JUCE_DIR}/extras/Build/CMakeLists.txt")
     file(READ "${AURA_JUCE_DIR}/extras/Build/CMakeLists.txt" _aura_juce_build_list)
     if(_aura_juce_build_list MATCHES "add_subdirectory\\(juceaide\\)")
         string(REPLACE "add_subdirectory(juceaide)"
