@@ -2,7 +2,7 @@ name: Build AURA
 on:
   workflow_dispatch:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, "arena/7b8be8d4-aura" ]
     paths:
       - 'Source/**'
       - 'CMakeLists.txt'
