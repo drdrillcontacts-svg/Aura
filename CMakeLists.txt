@@ -63,7 +63,10 @@ endif()
 #      tool that would be built for Windows and thus could not run on the
 #      build host -> copy the known-correct JSON from tools/moduleinfo-stub.json.
 # ----------------------------------------------------------------------------
-if(CMAKE_SYSTEM_NAME STREQUAL "Windows" AND EXISTS "${AURA_JUCE_DIR}/extras/Build/CMake/JUCEUtils.cmake")
+# The cross toolchain (tools/cmake-windows-x86_64.cmake) sets
+# AURA_WINDOWS_CROSS_BUILD; a native Windows (MSVC) build must NOT take
+# any of the steps below.
+if(AURA_WINDOWS_CROSS_BUILD AND EXISTS "${AURA_JUCE_DIR}/extras/Build/CMake/JUCEUtils.cmake")
     file(READ "${AURA_JUCE_DIR}/extras/Build/CMake/JUCEUtils.cmake" _aura_juce_utils)
 
     # Note: \${...} below stays LITERAL (it must match the clone's own CMake
@@ -169,7 +172,9 @@ juce_add_plugin(AURA
 # CMake in this setup silently drops plain .s sources (the ASM language
 # cannot be compiler-detected against the zig cc shim), so the sentinel
 # data object is pre-assembled at configure time into the build tree.
-if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+# Cross-build only: on native Windows these symbols come from the real
+# msvcrt/ole32 and the -l import flags are meaningless to link.exe.
+if(AURA_WINDOWS_CROSS_BUILD)
     set(_aura_gaps_s   "${CMAKE_CURRENT_SOURCE_DIR}/tools/win-gaps/aura_crt_gaps_data.s")
     set(_aura_gaps_obj "${CMAKE_BINARY_DIR}/aura_crt_gaps_data.obj")
     if(NOT EXISTS "${_aura_gaps_obj}" OR "${_aura_gaps_s}" IS_NEWER_THAN "${_aura_gaps_obj}")
