@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1640" height="930" viewBox="0 0 1640 930" role="img" aria-labelledby="title desc">
+<title id="title">AURA — Planetary One-Shot Instrument UI Concept</title>
+<desc id="desc">A dark futuristic audio plugin interface with orbital planets, one-shot drag and drop, spectrum display, planetary controls, orbital reverb and a piano keyboard.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101a31"/><stop offset=".48" stop-color="#030712"/><stop offset="1" stop-color="#080d1b"/></linearGradient>
+  <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#101b31" stop-opacity=".96"/><stop offset="1" stop-color="#050a14" stop-opacity=".98"/></linearGradient>
+  <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a1f4ff"/><stop offset=".5" stop-color="#37cfff"/><stop offset="1" stop-color="#416dff"/></linearGradient>
+  <linearGradient id="planetEarth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a9f7ff"/><stop offset=".28" stop-color="#2178c7"/><stop offset=".63" stop-color="#0b244f"/><stop offset="1" stop-color="#02040b"/></linearGradient>
+  <radialGradient id="sun"><stop stop-color="#fff9a4"/><stop offset=".35" stop-color="#ffb32f"/><stop offset=".72" stop-color="#ff4b16"/><stop offset="1" stop-color="#6c090d"/></radialGradient>
+  <radialGradient id="nebula"><stop stop-color="#4855ff" stop-opacity=".25"/><stop offset="1" stop-color="#050a17" stop-opacity="0"/></radialGradient>
+  <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <pattern id="stars" width="137" height="101" patternUnits="userSpaceOnUse"><circle cx="9" cy="13" r="1" fill="#d8f4ff" opacity=".75"/><circle cx="54" cy="41" r=".8" fill="#fff" opacity=".65"/><circle cx="102" cy="18" r="1.2" fill="#a5c9ff" opacity=".75"/><circle cx="83" cy="82" r=".7" fill="#fff" opacity=".7"/><circle cx="25" cy="74" r=".6" fill="#b5bfff" opacity=".7"/><circle cx="128" cy="58" r=".6" fill="#fff" opacity=".55"/></pattern>
+  <g id="knob"><circle r="24" fill="#030812" stroke="#263c60" stroke-width="2"/><circle r="19" fill="#101b2d" stroke="#080d18" stroke-width="2"/><path d="M0 -17 L0 -4" stroke="#ecfbff" stroke-width="2.5" stroke-linecap="round"/><path d="M-15 -13 A20 20 0 0 1 15 -13" fill="none" stroke="#42d9ff" stroke-width="2.4" opacity=".9"/></g>
+  <g id="miniKnob"><circle r="16" fill="#030812" stroke="#2b4165" stroke-width="1.5"/><circle r="12" fill="#101b2d"/><path d="M0 -11 L0 -3" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M-10 -7 A13 13 0 0 1 10 -7" fill="none" stroke="#42d9ff" stroke-width="2"/></g>
+</defs>
+<!-- background -->
+<rect width="1640" height="930" rx="26" fill="url(#bg)"/>
+<rect width="1640" height="930" rx="26" fill="url(#stars)" opacity=".8"/>
+<rect x="2" y="2" width="1636" height="926" rx="25" fill="none" stroke="#45618d" stroke-opacity=".8" stroke-width="2"/>
+<!-- header -->
+<rect x="18" y="14" width="1604" height="70" rx="18" fill="#040914" stroke="#294064"/>
+<text x="48" y="52" font-family="Arial,sans-serif" font-size="32" letter-spacing="13" fill="#f5fbff">AURA</text>
+<path d="M99 27 A32 32 0 0 1 144 30" fill="none" stroke="#ff9b54" stroke-width="2.5" filter="url(#softGlow)"/>
+<text x="52" y="69" font-family="Arial,sans-serif" font-size="9" letter-spacing="4" fill="#8ea6ca">PLANETS • SOUNDS • BEYOND</text>
+<rect x="625" y="24" width="346" height="48" rx="24" fill="#070e1d" stroke="#263d61"/>
+<path d="M652 39 l-8 9 8 9" fill="none" stroke="#d9f6ff" stroke-width="2"/>
+<circle cx="691" cy="48" r="16" fill="url(#planetEarth)" stroke="#65cfff" stroke-width="1.5"/>
+<path d="M684 36 l4 7 -3 6 6 4 2 8 7 -5 3 -10 -7 -7z" fill="#5dd4a8" opacity=".9"/>
+<text x="723" y="54" font-family="Arial,sans-serif" font-size="18" fill="#edf7ff">Earth</text>
+<path d="M944 39 l8 9 -8 9" fill="none" stroke="#d9f6ff" stroke-width="2"/>
+<rect x="991" y="25" width="151" height="46" rx="20" fill="#070e1d" stroke="#1e3355"/>
+<text x="1015" y="53" font-family="Arial,sans-serif" font-size="13" fill="#c7d8ef">REALISTIC ▾</text>
+<path d="M1315 47 h24 m-12 -9 v18" stroke="#42d9ff" stroke-width="2" opacity=".9"/>
+<text x="1350" y="44" font-family="Arial,sans-serif" font-size="13" fill="#e5f2ff">Piano</text><text x="1350" y="60" font-family="Arial,sans-serif" font-size="11" fill="#7794bb">SOURCE</text>
+<circle cx="1581" cy="48" r="21" fill="#070e1d" stroke="#263d61"/><path d="M1572 41 h18 M1572 48 h18 M1572 55 h18" stroke="#d7e9ff" stroke-width="1.8"/>
+<!-- orbital viewport -->
+<rect x="20" y="96" width="1600" height="336" rx="24" fill="#030816" stroke="#223757"/>
+<rect x="20" y="96" width="1600" height="336" rx="24" fill="url(#nebula)"/>
+<ellipse cx="820" cy="262" rx="742" ry="90" fill="none" stroke="#dbeaff" stroke-opacity=".24"/>
+<ellipse cx="820" cy="262" rx="650" ry="112" fill="none" stroke="#dbeaff" stroke-opacity=".25"/>
+<ellipse cx="820" cy="262" rx="560" ry="134" fill="none" stroke="#dbeaff" stroke-opacity=".29"/>
+<ellipse cx="820" cy="262" rx="470" ry="155" fill="none" stroke="#dbeaff" stroke-opacity=".3"/>
+<ellipse cx="820" cy="262" rx="370" ry="174" fill="none" stroke="#dbeaff" stroke-opacity=".33"/>
+<ellipse cx="820" cy="262" rx="270" ry="190" fill="none" stroke="#dbeaff" stroke-opacity=".34"/>
+<ellipse cx="820" cy="262" rx="176" ry="203" fill="none" stroke="#dbeaff" stroke-opacity=".25"/>
+<!-- planet stems -->
+<g stroke="#56bfff" stroke-opacity=".35" stroke-dasharray="3 5"><path d="M132 242 V348"/><path d="M286 243 V348"/><path d="M451 242 V348"/><path d="M607 241 V348"/><path d="M820 236 V355"/><path d="M1056 244 V348"/><path d="M1220 245 V348"/><path d="M1374 245 V348"/><path d="M1518 245 V348"/></g>
+<!-- planets -->
+<circle cx="132" cy="243" r="23" fill="#a2a9b7" opacity=".13" filter="url(#glow)"/><circle cx="132" cy="243" r="18" fill="#7b8496"/><path d="M118 237 q14 -12 24 0 l-5 12 -13 6z" fill="#424d64"/>
+<circle cx="286" cy="243" r="28" fill="#d87755" opacity=".15" filter="url(#softGlow)"/><circle cx="286" cy="243" r="25" fill="#a34c39"/><path d="M265 233 q17 -13 38 -1 l-4 8 -27 6z M271 255 l28 -6" fill="none" stroke="#e99a70" stroke-width="5" opacity=".7"/>
+<circle cx="451" cy="242" r="42" fill="#d7ad72" opacity=".16" filter="url(#softGlow)"/><circle cx="451" cy="242" r="37" fill="#b98b57"/><path d="M419 229 q34 -19 64 0 M417 243 q32 -13 68 0 M426 259 q24 -7 50 2" fill="none" stroke="#5a3a2a" stroke-width="8" opacity=".85"/>
+<circle cx="607" cy="242" r="45" fill="#ff5c20" opacity=".35" filter="url(#glow)"/><circle cx="607" cy="242" r="38" fill="url(#sun)" stroke="#ff9e32" stroke-width="2"/><path d="M582 232 q24 -25 46 0 t-4 26 q-16 -9 -42 5" fill="none" stroke="#fff27a" stroke-width="4" opacity=".8"/>
+<!-- selected Earth -->
+<circle cx="820" cy="242" r="91" fill="#197eff" opacity=".18" filter="url(#glow)"/>
+<circle cx="820" cy="242" r="76" fill="url(#planetEarth)" stroke="#63cfff" stroke-width="3" filter="url(#softGlow)"/>
+<path d="M783 192 l18 -12 13 11 -6 14 16 9 -6 13 -16 3 -7 19 -13 7 -7 -22 -14 -12 6 -19z M835 219 l17 -10 16 11 -7 16 -16 5 -5 18 -13 -7 5 -19z M801 265 l18 -5 8 13 -11 18 -14 -8z" fill="#4fc69d" opacity=".85"/>
+<path d="M762 223 q19 -47 60 -48 M779 291 q37 27 74 -3" fill="none" stroke="#d8faff" stroke-opacity=".45" stroke-width="3"/>
+<circle cx="820" cy="242" r="84" fill="none" stroke="#55cfff" stroke-opacity=".75" stroke-width="1.5"/>
+<!-- Saturn -->
+<ellipse cx="1056" cy="243" rx="62" ry="18" transform="rotate(-12 1056 243)" fill="none" stroke="#ad9be9" stroke-width="9" opacity=".85"/>
+<ellipse cx="1056" cy="243" rx="62" ry="18" transform="rotate(-12 1056 243)" fill="none" stroke="#50d8ff" stroke-width="3" opacity=".8"/>
+<circle cx="1056" cy="243" r="30" fill="#d6c19a"/><path d="M1029 236 q26 -13 54 0 M1030 248 q26 -10 53 0" fill="none" stroke="#8d6b4b" stroke-width="6"/>
+<circle cx="1220" cy="243" r="34" fill="#1e9fbf" opacity=".18" filter="url(#softGlow)"/><circle cx="1220" cy="243" r="29" fill="#138aa9"/><path d="M1195 237 q25 -14 49 0 M1199 254 q23 8 41 -4" fill="none" stroke="#7defff" stroke-width="3" opacity=".7"/>
+<circle cx="1374" cy="243" r="30" fill="#284bff" opacity=".25" filter="url(#softGlow)"/><circle cx="1374" cy="243" r="26" fill="#1234b4"/><path d="M1351 232 q21 -15 44 -1" fill="none" stroke="#4c8fff" stroke-width="5"/>
+<circle cx="1518" cy="243" r="23" fill="#934cff" opacity=".2" filter="url(#softGlow)"/><circle cx="1518" cy="243" r="20" fill="#5424a1"/><path d="M1502 240 q16 -10 29 0" fill="none" stroke="#cba6ff" stroke-width="4"/>
+<path d="M39 247 l-10 12 10 12 M1601 247 l10 12 -10 12" fill="none" stroke="#d4eaff" stroke-width="2"/>
+<text x="820" y="365" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" letter-spacing="5" fill="#f4fbff">EARTH</text>
+<text x="820" y="390" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" letter-spacing="2" fill="#a8c9ec">WARM  ·  NATURAL  ·  ORGANIC</text>
+<!-- control panels -->
+<g>
+ <rect x="22" y="450" width="340" height="300" rx="18" fill="url(#panel)" stroke="#31496e"/>
+ <rect x="374" y="450" width="608" height="300" rx="18" fill="url(#panel)" stroke="#31496e"/>
+ <rect x="994" y="450" width="330" height="300" rx="18" fill="url(#panel)" stroke="#31496e"/>
+ <rect x="1336" y="450" width="282" height="300" rx="18" fill="url(#panel)" stroke="#31496e"/>
+</g>
+<g font-family="Arial,sans-serif" font-size="12" letter-spacing="1.5" fill="#a9d9ff">
+ <text x="48" y="478">◎ PLANET SETTINGS</text><text x="400" y="478">◉ SAMPLE TRANSFORM</text><text x="1018" y="478">✣ SOUND CONTROLS</text><text x="1360" y="478">◉ ORBITAL REVERB</text>
+</g>
+<g stroke="#1d3455" stroke-width="1"><path d="M44 490 H340 M396 490 H960 M1014 490 H1304 M1355 490 H1597"/></g>
+<!-- left settings rows -->
+<g font-family="Arial,sans-serif" fill="#d7e9ff">
+ <g transform="translate(63 527)"><circle r="20" fill="#071020" stroke="#365174"/><ellipse rx="13" ry="5" fill="none" stroke="#9fdfff" stroke-width="1.5" transform="rotate(-25)"/><circle r="5" fill="none" stroke="#9fdfff"/></g>
+ <text x="98" y="523" font-size="11" letter-spacing="1.2">GRAVITY</text><text x="98" y="542" font-size="13" fill="#8eb8e6">0.68</text><use href="#knob" x="300" y="530"/>
+ <g transform="translate(63 590)"><circle r="20" fill="#071020" stroke="#365174"/><path d="M-12 -5 q6 -8 12 0 t12 0 M-12 4 q6 -8 12 0 t12 0" fill="none" stroke="#9fdfff" stroke-width="1.7"/></g>
+ <text x="98" y="586" font-size="11" letter-spacing="1.2">ATMOSPHERE</text><text x="98" y="605" font-size="13" fill="#8eb8e6">0.72</text><use href="#knob" x="300" y="593"/>
+ <g transform="translate(63 653)"><circle r="20" fill="#071020" stroke="#365174"/><path d="M0 -12 v17 M-6 -5 a6 6 0 1 0 12 0 v-7 a6 6 0 0 0 -12 0z M-8 10 h16" fill="none" stroke="#9fdfff" stroke-width="1.5"/></g>
+ <text x="98" y="649" font-size="11" letter-spacing="1.2">TEMPERATURE</text><text x="98" y="668" font-size="13" fill="#8eb8e6">0.45</text><use href="#knob" x="300" y="656"/>
+ <g transform="translate(63 716)"><circle r="20" fill="#071020" stroke="#365174"/><circle r="4" fill="none" stroke="#9fdfff"/><circle cx="-9" cy="-7" r="3" fill="none" stroke="#9fdfff"/><circle cx="10" cy="-7" r="3" fill="none" stroke="#9fdfff"/><circle cx="0" cy="10" r="3" fill="none" stroke="#9fdfff"/><path d="M-7 -5 L-2 -1 M7 -5 L2 -1 M0 4 V7" stroke="#9fdfff"/></g>
+ <text x="98" y="712" font-size="11" letter-spacing="1.2">DENSITY</text><text x="98" y="731" font-size="13" fill="#8eb8e6">0.60</text><use href="#knob" x="300" y="719"/>
+</g>
+<!-- spectrum panel -->
+<text x="402" y="516" font-family="Arial,sans-serif" font-size="11" fill="#46d9ff" letter-spacing="1.4">SPECTRUM</text><text x="540" y="516" font-family="Arial,sans-serif" font-size="11" fill="#6e83b6" letter-spacing="1.4">PARTIALS</text><text x="670" y="516" font-family="Arial,sans-serif" font-size="11" fill="#6e83b6" letter-spacing="1.4">ENVELOPE</text>
+<rect x="395" y="531" width="566" height="200" rx="10" fill="#050b18" stroke="#152a4b"/>
+<ellipse cx="678" cy="641" rx="247" ry="66" fill="none" stroke="#3355a5" stroke-opacity=".45"/><ellipse cx="678" cy="641" rx="205" ry="47" fill="none" stroke="#3355a5" stroke-opacity=".4"/><ellipse cx="678" cy="641" rx="154" ry="29" fill="none" stroke="#3355a5" stroke-opacity=".4"/>
+<path d="M415 667 L430 661 444 669 457 648 470 655 484 631 497 656 511 640 525 663 539 629 553 649 567 617 581 641 595 607 609 630 623 583 637 617 651 566 665 602 679 548 693 601 707 577 721 621 735 595 749 635 763 612 777 647 791 622 805 659 819 638 833 662 847 644 861 667 875 650 889 665 903 654 917 668 943 662" fill="none" stroke="url(#cyan)" stroke-width="2.4" filter="url(#softGlow)"/>
+<g fill="#42d9ff" opacity=".75"><circle cx="457" cy="648" r="2"/><circle cx="511" cy="640" r="2"/><circle cx="567" cy="617" r="2"/><circle cx="623" cy="583" r="2"/><circle cx="679" cy="548" r="2.5"/><circle cx="735" cy="595" r="2"/><circle cx="791" cy="622" r="2"/><circle cx="847" cy="644" r="2"/><circle cx="903" cy="654" r="2"/></g>
+<text x="678" y="720" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" letter-spacing="2" fill="#6787b7">EARTH · SPECTRAL PROFILE</text>
+<!-- sound controls -->
+<g font-family="Arial,sans-serif" fill="#d7e9ff">
+ <text x="1018" y="537" font-size="11" letter-spacing="1.2">☼  BRIGHTNESS</text><text x="1018" y="556" font-size="12" fill="#8eb8e6">0.62</text><path d="M1090 551 H1190" stroke="#233d63" stroke-width="4" stroke-linecap="round"/><path d="M1090 551 H1150" stroke="#4b76ff" stroke-width="4" stroke-linecap="round"/><circle cx="1150" cy="551" r="4" fill="#c9f7ff"/><use href="#miniKnob" x="1258" y="549"/>
+ <path d="M1016 572 H1301" stroke="#1c2f4f"/>
+ <text x="1018" y="599" font-size="11" letter-spacing="1.2">∿  HARMONICS</text><text x="1018" y="618" font-size="12" fill="#8eb8e6">0.48</text><path d="M1090 613 H1190" stroke="#233d63" stroke-width="4" stroke-linecap="round"/><path d="M1090 613 H1138" stroke="#4b76ff" stroke-width="4" stroke-linecap="round"/><circle cx="1138" cy="613" r="4" fill="#c9f7ff"/><use href="#miniKnob" x="1258" y="611"/>
+ <path d="M1016 634 H1301" stroke="#1c2f4f"/>
+ <text x="1018" y="661" font-size="11" letter-spacing="1.2">◉  REVERB</text><text x="1018" y="680" font-size="12" fill="#8eb8e6">0.35</text><path d="M1090 675 H1190" stroke="#233d63" stroke-width="4" stroke-linecap="round"/><path d="M1090 675 H1125" stroke="#4b76ff" stroke-width="4" stroke-linecap="round"/><circle cx="1125" cy="675" r="4" fill="#c9f7ff"/><use href="#miniKnob" x="1258" y="673"/>
+ <text x="1018" y="723" font-size="11" letter-spacing="1.2">↔  WIDTH</text><path d="M1090 727 H1190" stroke="#233d63" stroke-width="4" stroke-linecap="round"/><path d="M1090 727 H1160" stroke="#4b76ff" stroke-width="4" stroke-linecap="round"/><circle cx="1160" cy="727" r="4" fill="#c9f7ff"/><use href="#miniKnob" x="1258" y="721"/>
+</g>
+<!-- orbital reverb panel -->
+<circle cx="1477" cy="574" r="67" fill="#071023" stroke="#1c3b6d"/>
+<circle cx="1477" cy="574" r="53" fill="none" stroke="#294f95" stroke-dasharray="2 4"/>
+<circle cx="1477" cy="574" r="38" fill="none" stroke="#355ac3" stroke-opacity=".7"/>
+<circle cx="1477" cy="574" r="23" fill="none" stroke="#4c6fff" stroke-opacity=".8"/>
+<circle cx="1477" cy="574" r="8" fill="#86dfff" filter="url(#glow)"/>
+<path d="M1477 507 V641 M1410 574 H1544" stroke="#456cb7" stroke-opacity=".45" stroke-dasharray="2 4"/>
+<g font-family="Arial,sans-serif" fill="#d7e9ff"><text x="1360" y="674" font-size="11" letter-spacing="1.1">SIZE</text><path d="M1360 694 H1467" stroke="#233d63" stroke-width="4" stroke-linecap="round"/><path d="M1360 694 H1430" stroke="#4b76ff" stroke-width="4" stroke-linecap="round"/><circle cx="1430" cy="694" r="4" fill="#c9f7ff"/><use href="#miniKnob" x="1529" y="690"/><text x="1360" y="727" font-size="11" letter-spacing="1.1">DECAY</text><path d="M1360 741 H1467" stroke="#233d63" stroke-width="4" stroke-linecap="round"/><path d="M1360 741 H1404" stroke="#4b76ff" stroke-width="4" stroke-linecap="round"/><circle cx="1404" cy="741" r="4" fill="#c9f7ff"/><use href="#miniKnob" x="1529" y="737"/></g>
+<!-- drag drop zone -->
+<rect x="25" y="766" width="1590" height="68" rx="13" fill="#071020" stroke="#3a74b7" stroke-width="1.5" stroke-dasharray="7 5"/>
+<path d="M70 789 h26 v20 h-26z M75 784 h16 v5 M83 795 v9 M79 800 l4 4 4 -4" fill="none" stroke="#42d9ff" stroke-width="1.8"/>
+<text x="112" y="793" font-family="Arial,sans-serif" font-size="13" font-weight="bold" letter-spacing="2" fill="#7de8ff">DROP ONE-SHOT HERE</text>
+<text x="112" y="813" font-family="Arial,sans-serif" font-size="10" letter-spacing="1.1" fill="#9ab5d8">WAV • AIFF • FLAC • OGG  /  TRANSFORM IT INTO A PLAYABLE PLANETARY INSTRUMENT</text>
+<rect x="1320" y="782" width="270" height="35" rx="17" fill="#0c1b32" stroke="#3765a4"/><text x="1455" y="804" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" letter-spacing="1.5" fill="#dffaff">＋  LOAD ONE-SHOT</text>
+<!-- keyboard -->
+<rect x="25" y="845" width="1590" height="68" rx="10" fill="#030711" stroke="#203453"/>
+<g transform="translate(85 851)">
+<rect x="0" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="39" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="78" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="117" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="156" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="195" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="234" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="273" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="312" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="351" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="390" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="429" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="468" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="507" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="546" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="585" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="624" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="663" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="702" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="741" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="780" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="819" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="858" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="897" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="936" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="975" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="1014" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="1053" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="1092" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="1131" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="1170" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="1209" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="1248" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="1287" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="1326" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="1365" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/><rect x="1404" y="0" width="38" height="56" rx="2" fill="#e7eef9" stroke="#75849c" stroke-width="1"/>
+<g fill="#080e1b" stroke="#293a55" stroke-width="1">
+<rect x="25" y="0" width="22" height="36" rx="2"/><rect x="64" y="0" width="22" height="36" rx="2"/><rect x="142" y="0" width="22" height="36" rx="2"/><rect x="181" y="0" width="22" height="36" rx="2"/><rect x="220" y="0" width="22" height="36" rx="2"/><rect x="298" y="0" width="22" height="36" rx="2"/><rect x="337" y="0" width="22" height="36" rx="2"/><rect x="415" y="0" width="22" height="36" rx="2"/><rect x="454" y="0" width="22" height="36" rx="2"/><rect x="493" y="0" width="22" height="36" rx="2"/><rect x="571" y="0" width="22" height="36" rx="2"/><rect x="610" y="0" width="22" height="36" rx="2"/><rect x="688" y="0" width="22" height="36" rx="2"/><rect x="727" y="0" width="22" height="36" rx="2"/><rect x="766" y="0" width="22" height="36" rx="2"/><rect x="844" y="0" width="22" height="36" rx="2"/><rect x="883" y="0" width="22" height="36" rx="2"/><rect x="961" y="0" width="22" height="36" rx="2"/><rect x="1000" y="0" width="22" height="36" rx="2"/><rect x="1039" y="0" width="22" height="36" rx="2"/><rect x="1117" y="0" width="22" height="36" rx="2"/><rect x="1156" y="0" width="22" height="36" rx="2"/><rect x="1234" y="0" width="22" height="36" rx="2"/><rect x="1273" y="0" width="22" height="36" rx="2"/><rect x="1312" y="0" width="22" height="36" rx="2"/><rect x="1390" y="0" width="22" height="36" rx="2"/><rect x="1429" y="0" width="22" height="36" rx="2"/>
+</g>
+<rect x="195" y="0" width="38" height="56" fill="#a8eaff" opacity=".24"/><rect x="585" y="0" width="38" height="56" fill="#8b82ff" opacity=".25"/><rect x="975" y="0" width="38" height="56" fill="#a8eaff" opacity=".24"/>
+</g>
+<text x="42" y="878" font-family="Arial,sans-serif" font-size="10" letter-spacing="1.2" fill="#91b7dc">MIDI</text><text x="42" y="895" font-family="Arial,sans-serif" font-size="9" fill="#42d9ff">IN ●</text>
+<text x="1576" y="878" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" letter-spacing="1.2" fill="#91b7dc">AUDIO</text><text x="1576" y="895" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" fill="#42d9ff">OUT ●</text>
+</svg>
