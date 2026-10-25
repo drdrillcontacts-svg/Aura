@@ -1,0 +1,29 @@
+name: Build AURA
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'Source/**'
+      - 'CMakeLists.txt'
+      - '.github/workflows/build.yml'
+jobs:
+  windows-vst3:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: ilammy/msvc-dev-cmd@v1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Configure
+        run: cmake -S . -B build -A x64
+      - name: Build VST3
+        run: cmake --build build --config Release --target AURA_VST3
+      - name: Upload VST3
+        uses: actions/upload-artifact@v4
+        with:
+          name: AURA-Windows-VST3
+          path: build/AURA_artefacts/Release/VST3/
